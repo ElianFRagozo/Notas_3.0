@@ -13,6 +13,25 @@ $(document).ready(function() {
         })
     }
 
+    function loadNotes() {
+      fetch('http://localhost:3000/api/notes')
+        .then(response => response.json())
+        .then(notes => {
+          notesList.innerHTML = '';
+          notes.forEach(note => {
+            const li = document.createElement('li');
+            li.textContent = `${note.title}: ${note.content}`;
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.style.background ="red";
+            deleteButton.addEventListener('click', () => deleteNote(note._id));
+            li.appendChild(deleteButton);
+            notesList.appendChild(li);
+          });
+        })
+        .catch(error => console.error('Error fetching notes:', error));
+    }
+
     function addLabelGroups() {
         $('.tags-selector .label-group-item').off('click').on('click', function(event) {
           event.preventDefault();
@@ -70,6 +89,22 @@ $(document).ready(function() {
         $btns.removeClass('active');
         $(this).addClass('active');  
     })
+
+    function addNote(title, content) {
+      fetch('http://localhost:3000/api/notes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ title, content })
+      })
+      .then(response => response.json())
+      .then(() => {
+        loadNotes();
+        noteForm.reset();
+      })
+      .catch(error => console.error('Error adding note:', error));
+    }
 
     $('#btn-add-notes').on('click', function(event) {
         $('#notesMailModal').modal('show');
@@ -130,9 +165,17 @@ $(document).ready(function() {
         $("#ct").prepend($html);
         $('#notesMailModal').modal('hide');
 
+        noteForm.addEventListener('submit', function(event) {
+          event.preventDefault();
+          const title = document.getElementById('title').value;
+          const content = document.getElementById('content').value;
+          addNote(title, content);
+        });
+
         deleteNote();
         favNote();
         addLabelGroups();
+        loadNotes();
     });
 
     $('#notesMailModal').on('hidden.bs.modal', function (event) {
@@ -144,6 +187,7 @@ $(document).ready(function() {
     deleteNote();
     favNote();
     addLabelGroups();
+    loadNotes();
 })
 
 // Validation Process
