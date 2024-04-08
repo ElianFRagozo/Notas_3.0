@@ -22,6 +22,7 @@
     
 </head>
 <body class="form">
+    
 
     <!-- BEGIN LOADER -->
     <div id="load_screen"> <div class="loader"> <div class="loader-content">
@@ -43,10 +44,9 @@
     
                         <div class="position-relative">
     
-                            <img src="assets/img/auth-cover.svg" alt="auth-img">
+                            <img src="assets/img/notes.svg" alt="auth-img">
     
-                            <h2 class="mt-5 text-white font-weight-bolder px-2">Join the community of expert developers</h2>
-                            <p class="text-white px-2">It is easy to setup with great customer experience. Start your 7-day free trial</p>
+                            <h2 class="mt-5 text-white font-weight-bolder px-2">NOTES WEB</h2>
                         </div>
                         
                     </div>
@@ -102,7 +102,7 @@
                                     </div>
                                 </div>
                                 
-                                <div class="col-sm-4 col-12">
+                                <div class="col-sm-6 col-12">
                                     <div class="mb-4">
                                         <button class="btn  btn-social-login w-100 ">
                                             <img src="assets/img/google-gmail.svg" alt="" class="img-fluid">
@@ -111,30 +111,21 @@
                                     </div>
                                 </div>
     
-                                <div class="col-sm-4 col-12">
+                                <div class="col-sm-6 col-12">
                                     <div class="mb-4">
                                         <button class="btn  btn-social-login w-100">
-                                            <img src="assets/img/github-icon.svg" alt="" class="img-fluid">
-                                            <span class="btn-text-inner">Github</span>
-                                        </button>
-                                    </div>
-                                </div>
-    
-                                <div class="col-sm-4 col-12">
-                                    <div class="mb-4">
-                                        <button class="btn  btn-social-login w-100">
-                                            <img src="assets/img/twitter.svg" alt="" class="img-fluid">
-                                            <span class="btn-text-inner">Twitter</span>
+                                            <img src="assets/img/email-icon.svg" alt="" class="img-fluid">
+                                            <span class="btn-text-inner">Email</span>
                                         </button>
                                     </div>
                                 </div>
 
                                 <div class="col-12">
                                     <div class="text-center">
-                                        <p class="mb-0">Dont't have an account ? <a href="javascript:void(0);" class="text-warning">Sign Up</a></p>
+                                        <p class="mb-0">Don't have an account? <a href="auth-cover-signup.html" class="text-warning">Sign Up</a></p>
                                     </div>
                                 </div>
-                                
+    
                             </div>
                             
                         </div>
@@ -151,6 +142,26 @@
     <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- END GLOBAL MANDATORY SCRIPTS -->
 
+   <!-- Configuración de Firebase y SDK -->
+   <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDp1agRZmYWvPBXaINLILHtwlpZKgAJMVw",
+      authDomain: "fb-notas.firebaseapp.com",
+      projectId: "fb-notas",
+      storageBucket: "fb-notas.appspot.com",
+      messagingSenderId: "36933207721",
+      appId: "1:36933207721:web:58705b3a46ee4949444bb8"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+  </script>
 
 </body>
 </html>

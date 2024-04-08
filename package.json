@@ -1,11 +1,11 @@
 {
   "dependencies": {
+    "firebase": "^10.10.0",
     "mongodb": "^6.5.0"
   },
   "name": "notas",
   "version": "1.0.0",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
