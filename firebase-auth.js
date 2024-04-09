@@ -1,8 +1,8 @@
-// Import the functions you need from the SDKs you need
+// Configuración de Firebase y SDK
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js'
 
-// Your web app's Firebase configuration
+// Tu configuración de Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyDp1agRZmYWvPBXaINLILHtwlpZKgAJMVw",
   authDomain: "fb-notas.firebaseapp.com",
@@ -12,7 +12,7 @@ const firebaseConfig = {
   appId: "1:36933207721:web:58705b3a46ee4949444bb8"
 };
 
-// Initialize Firebase
+// Inicializar Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 
