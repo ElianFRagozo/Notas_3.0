@@ -5,64 +5,48 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
     <title>SignUp Notes Web </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.4.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.4.3/dist/js/bootstrap.bundle.min.js"></script>
+
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico"/>
     <link href="assets/layouts/modern-light-menu/css/light/loader.css" rel="stylesheet" type="text/css" />
     <link href="assets/layouts/modern-light-menu/css/dark/loader.css" rel="stylesheet" type="text/css" />
     <script src="assets/layouts/modern-light-menu/loader.js"></script>
-    
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
     <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-
     <link href="assets/layouts/modern-light-menu/css/light/plugins.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/light/authentication/auth-cover.css" rel="stylesheet" type="text/css" />
-    
     <link href="assets/layouts/modern-light-menu/css/dark/plugins.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/dark/authentication/auth-cover.css" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
-    
 </head>
 <body class="form">
-
     <!-- BEGIN LOADER -->
     <div id="load_screen"> <div class="loader"> <div class="loader-content">
         <div class="spinner-grow align-self-center"></div>
     </div></div></div>
     <!--  END LOADER -->
-
     <div class="auth-container d-flex">
-
         <div class="container mx-auto align-self-center">
-    
             <div class="row">
-    
                 <div class="col-6 d-lg-flex d-none h-100 my-auto top-0 start-0 text-center justify-content-center flex-column">
                     <div class="auth-cover-bg-image"></div>
                     <div class="auth-overlay"></div>
-                        
                     <div class="auth-cover">
-    
                         <div class="position-relative">
-    
                             <img src="assets/img/notes.svg" alt="auth-img">
-    
                             <h2 class="mt-5 text-white font-weight-bolder px-2">NOTES WEB</h2>
                         </div>
-                        
                     </div>
-
                 </div>
-
                 <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-8 col-12 d-flex flex-column align-self-center ms-lg-auto me-lg-0 mx-auto">
                     <div class="card">
                         <div class="card-body">
-    
                             <div class="row">
                                 <div class="col-md-12 mb-3">
-                                    
                                     <h2>Únete</h2>
                                     <p>Ingrese su correo electrónico y contraseña para registrarse</p>
-                                    
                                     <div class="col-md-12">
                                         <div class="mb-3">
                                             <label class="form-label">Correo electrónico</label>
@@ -80,133 +64,58 @@
                                             <button id="signUpButton" class="btn btn-secondary w-100">Registrar</button>
                                         </div>
                                     </div>
-                                    
-                                
-                                <div class="col-12 mb-4">
-                                    <div class="">
-                                        <div class="seperator">
-                                            <hr>
-                                            <div class="seperator-text"> <span>O continuar con</span></div>
+                                    <div class="col-12 mb-4">
+                                        <div class="">
+                                            <div class="seperator">
+                                                <hr>
+                                                <div class="seperator-text"> <span>O continuar con</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-50 col-12">
+                                        <div class="mb-4">
+                                            <button class="btn  btn-social-login w-100 " id="googleLogin">
+                                                <img src="assets/img/google-gmail.svg" alt="" class="img-fluid">
+                                                <span class="btn-text-inner">Google</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="text-center">
+                                            <p class="mb-0">¿Ya tienes una cuenta? <a href="auth-cover-signin.html" class="text-warning">Inicia sesión</a></p>
                                         </div>
                                     </div>
                                 </div>
-                                
-                                <div class="col-sm-50 col-12">
-                                    <div class="mb-4">
-                                        <button class="btn  btn-social-login w-100 " id="googleLogin">
-                                            <img src="assets/img/google-gmail.svg" alt="" class="img-fluid">
-                                            <span class="btn-text-inner">Google</span>
-                                        </button>
-                                    </div>
-                                </div>
-    
-                                <div class="col-12">
-                                    <div class="text-center">
-                                        <p class="mb-0">¿Ya tienes una cuenta? <a href="auth-cover-signin.html" class="text-warning">Inicia sesión</a></p>
-                                    </div>
-                                </div>
-                                
                             </div>
-                            
                         </div>
                     </div>
                 </div>
-                
             </div>
-            
         </div>
-
     </div>
-    
     <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
     <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- END GLOBAL MANDATORY SCRIPTS -->
+    <!-- Enlace al archivo JavaScript externo -->
+    <script src="firebase-auth.js" type="module" defer></script>
 
-
-
-  <!-- Configuración de Firebase y SDK -->
-  
-  <script type="module">
-    // Import the functions you need from the SDKs you need
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider,signInWithPopup  } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js'
-    // TODO: Add SDKs for Firebase products that you want to use
-    // https://firebase.google.com/docs/web/setup#available-libraries
-  
-    // Your web app's Firebase configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyDp1agRZmYWvPBXaINLILHtwlpZKgAJMVw",
-      authDomain: "fb-notas.firebaseapp.com",
-      projectId: "fb-notas",
-      storageBucket: "fb-notas.appspot.com",
-      messagingSenderId: "36933207721",
-      appId: "1:36933207721:web:58705b3a46ee4949444bb8"
-    };
-  
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth();
-
+    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Usuario creado exitosamente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Deseas iniciar sesión ahora?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
     
-document.addEventListener('DOMContentLoaded', function() {
-    const signUpButton = document.querySelector('#signUpButton');
-
-    signUpButton.addEventListener('click', function(e) {
-        e.preventDefault();
-
-        // Obtener el valor del email y la contraseña
-        const email = document.querySelector('#emailInput').value;
-        const password = document.querySelector('#passwordInput').value;
-
-        // Crear usuario con correo y contraseña
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                // Usuario creado exitosamente
-                var user = userCredential.user;
-                console.log('Usuario creado:', user);
-
-                // Aquí puedes redirigir al usuario o mostrar un mensaje de éxito
-            })
-            .catch((error) => {
-                // Error al crear el usuario
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                console.error('Error al crear el usuario:', errorMessage);
-                // Aquí puedes manejar los errores de autenticación
-            });
-    });
-});
-
-//Google login
-
-    const googleLogin = document.querySelector('#googleLogin');
-
-    googleLogin.addEventListener('click', function(e) {
-        e.preventDefault();
-
-        const provider = new GoogleAuthProvider();
-        const auth = getAuth();
-        signInWithPopup(auth, provider)
-        .then((result) => {
-        console.log('google login')
-        window.location.href = 'index.html';
-        }).catch((error) => {
-                // Error al autenticar el usuario
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                console.error('Error al autenticar el usuario', errorMessage);
-                alert('ERROR DE AUTENTICACION');
-                // Aquí puedes manejar los errores de autenticación
-        });
-    });
-
-
-  </script>
-
-
-
- <!-- CUSTOM CODE -->
-
- <!-- <script src="firebase-auth.js"></script> -->
 </body>
 </html>
