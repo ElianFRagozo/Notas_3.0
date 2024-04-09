@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
-    <title>SignUp Cover | CORK - Multipurpose Bootstrap Dashboard Template </title>
+    <title>SignUp Notes Web </title>
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico"/>
     <link href="assets/layouts/modern-light-menu/css/light/loader.css" rel="stylesheet" type="text/css" />
     <link href="assets/layouts/modern-light-menu/css/dark/loader.css" rel="stylesheet" type="text/css" />
@@ -44,10 +44,9 @@
     
                         <div class="position-relative">
     
-                            <img src="assets/img/auth-cover.svg" alt="auth-img">
+                            <img src="assets/img/notes.svg" alt="auth-img">
     
-                            <h2 class="mt-5 text-white font-weight-bolder px-2">Join the community of expert developers</h2>
-                            <p class="text-white px-2">It is easy to setup with great customer experience. Start your 7-day free trial</p>
+                            <h2 class="mt-5 text-white font-weight-bolder px-2">NOTES WEB</h2>
                         </div>
                         
                     </div>
@@ -61,24 +60,24 @@
                             <div class="row">
                                 <div class="col-md-12 mb-3">
                                     
-                                    <h2>Sign Up</h2>
-                                    <p>Enter your email and password to register</p>
+                                    <h2>Únete</h2>
+                                    <p>Ingrese su correo electrónico y contraseña para registrarse</p>
                                     
                                     <div class="col-md-12">
                                         <div class="mb-3">
-                                            <label class="form-label">Email</label>
+                                            <label class="form-label">Correo electrónico</label>
                                             <input id="emailInput" type="email" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="mb-3">
-                                            <label class="form-label">Password</label>
+                                            <label class="form-label">Contraseña</label>
                                             <input id="passwordInput" type="password" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="mb-4">
-                                            <button id="signUpButton" class="btn btn-secondary w-100">SIGN UP</button>
+                                            <button id="signUpButton" class="btn btn-secondary w-100">Registrar</button>
                                         </div>
                                     </div>
                                     
@@ -87,14 +86,14 @@
                                     <div class="">
                                         <div class="seperator">
                                             <hr>
-                                            <div class="seperator-text"> <span>Or continue with</span></div>
+                                            <div class="seperator-text"> <span>O continuar con</span></div>
                                         </div>
                                     </div>
                                 </div>
                                 
                                 <div class="col-sm-50 col-12">
                                     <div class="mb-4">
-                                        <button class="btn  btn-social-login w-100 ">
+                                        <button class="btn  btn-social-login w-100 " id="googleLogin">
                                             <img src="assets/img/google-gmail.svg" alt="" class="img-fluid">
                                             <span class="btn-text-inner">Google</span>
                                         </button>
@@ -103,7 +102,7 @@
     
                                 <div class="col-12">
                                     <div class="text-center">
-                                        <p class="mb-0">Already have an account ? <a href="auth-cover-signin.html" class="text-warning">Sign in</a></p>
+                                        <p class="mb-0">¿Ya tienes una cuenta? <a href="auth-cover-signin.html" class="text-warning">Inicia sesión</a></p>
                                     </div>
                                 </div>
                                 
@@ -130,9 +129,7 @@
   <script type="module">
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
-    import { getAuth, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js'
-    
-    import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js'
+    import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider,signInWithPopup  } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js'
     // TODO: Add SDKs for Firebase products that you want to use
     // https://firebase.google.com/docs/web/setup#available-libraries
   
@@ -149,7 +146,6 @@
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const auth = getAuth();
-    const fs = getFirestore();
 
     
 document.addEventListener('DOMContentLoaded', function() {
@@ -181,6 +177,29 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+//Google login
+
+    const googleLogin = document.querySelector('#googleLogin');
+
+    googleLogin.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        const provider = new GoogleAuthProvider();
+        const auth = getAuth();
+        signInWithPopup(auth, provider)
+        .then((result) => {
+        console.log('google login')
+        window.location.href = 'index.html';
+        }).catch((error) => {
+                // Error al autenticar el usuario
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.error('Error al autenticar el usuario', errorMessage);
+                alert('ERROR DE AUTENTICACION');
+                // Aquí puedes manejar los errores de autenticación
+        });
+    });
+
 
   </script>
 
@@ -188,6 +207,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
  <!-- CUSTOM CODE -->
 
- <script src="firebase-auth.js"></script>
+ <!-- <script src="firebase-auth.js"></script> -->
 </body>
 </html>
