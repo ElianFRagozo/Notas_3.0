@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const auth = getAuth();
             try {
                 const results = await signInWithPopup(auth, provider);
-                console.log('GitHub login');
+                console.log('Google login');
                 window.location.href = 'index.html';
             } catch (error) {
                 if (error.code === 'auth/account-exists-with-different-credential') {
@@ -105,8 +105,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     const bootstrapModal = new bootstrap.Modal(modal);
                     bootstrapModal.show();
                 } else {
-                    console.error('Error al autenticar con GitHub:', error);
-                    alert('ERROR DE AUTENTICACION X GITHUB');
+                    console.error('Error al autenticar con Google:', error);
+                    alert('ERROR DE AUTENTICACION X Google');
                 }
             }
         });
