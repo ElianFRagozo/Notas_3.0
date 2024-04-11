@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup  } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js'
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, GithubAuthProvider } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js'
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -47,7 +47,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     var errorCode = error.code;
                     var errorMessage = error.message;
                     console.error('Error al crear el usuario:', errorMessage);
-                    // Aquí puedes manejar los errores de autenticación
+                    if (errorCode === 'auth/email-already-in-use') {
+                        // Mostrar modal de correo ya registrado
+                        var emailExistsModal = new bootstrap.Modal(document.getElementById('emailExistsModal'));
+                        emailExistsModal.show();
+                    } else {
+                        // Otro error
+                        alert('Ha ocurrido un error al crear el usuario. Por favor, inténtelo de nuevo.');
+                    }
                 });
         });
     }
@@ -83,26 +90,54 @@ document.addEventListener('DOMContentLoaded', function() {
     // Google login
     const googleLogin = document.querySelector('#googleLogin');
     if (googleLogin) {
-        googleLogin.addEventListener('click', function(e) {
+        googleLogin.addEventListener('click', async function(e) {
             e.preventDefault();
 
             const provider = new GoogleAuthProvider();
             const auth = getAuth();
-            signInWithPopup(auth, provider)
-            .then((result) => {
-                console.log('google login');
+            try {
+                const results = await signInWithPopup(auth, provider);
+                console.log('GitHub login');
                 window.location.href = 'index.html';
-            }).catch((error) => {
-                    // Error al autenticar el usuario
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    console.error('Error al autenticar el usuario', errorMessage);
-                    alert('ERROR DE AUTENTICACION');
-                    // Aquí puedes manejar los errores de autenticación
-            });
+            } catch (error) {
+                if (error.code === 'auth/account-exists-with-different-credential') {
+                    const modal = document.getElementById('githubErrorModal');
+                    const bootstrapModal = new bootstrap.Modal(modal);
+                    bootstrapModal.show();
+                } else {
+                    console.error('Error al autenticar con GitHub:', error);
+                    alert('ERROR DE AUTENTICACION X GITHUB');
+                }
+            }
         });
     }
 
+    const githubButton = document.querySelector('#githubButton');
+    if (githubButton) {
+        githubButton.addEventListener('click', async function(e) {
+            e.preventDefault();
+    
+            const provider = new GithubAuthProvider();
+            const auth = getAuth();
+    
+            try {
+                const result = await signInWithPopup(auth, provider);
+                console.log('GitHub login');
+                window.location.href = 'index.html';
+            } catch (error) {
+                if (error.code === 'auth/account-exists-with-different-credential') {
+                    const modal = document.getElementById('githubErrorModal');
+                    const bootstrapModal = new bootstrap.Modal(modal);
+                    bootstrapModal.show();
+                } else {
+                    console.error('Error al autenticar con GitHub:', error);
+                    alert('ERROR DE AUTENTICACION X GITHUB');
+                }
+            }
+        });
+    }
+    
+    
     // Botón de correo
     const emailButton = document.querySelector('#emailButton');
     if (emailButton) {

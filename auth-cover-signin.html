@@ -113,6 +113,15 @@
     
                                 <div class="col-sm-6 col-12">
                                     <div class="mb-4">
+                                        <button class="btn  btn-social-login w-100 " id="githubButton">
+                                            <img src="assets/img/github-icon.svg" alt="" class="img-fluid">
+                                            <span class="btn-text-inner">GitHub</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6 col-12">
+                                    <div class="mb-4">
                                         <button class="btn  btn-social-login w-100" id="emailButton">
                                             <img src="assets/img/email-icon.svg" alt="" class="img-fluid">
                                             <span class="btn-text-inner" ></span>Email</span>
@@ -144,6 +153,22 @@
         <!-- Your separated JavaScript file -->
     <!-- Configuración de Firebase y SDK -->
 <script src="firebase-auth.js" type="module" defer></script>
+<div class="modal" id="githubErrorModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Error de autenticación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Este correo ya está registrado con otro proveedor. Por favor, inicie sesión con el proveedor con el que se registró anteriormente.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 </body>
