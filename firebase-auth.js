@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Usuario encontrado exitosamente
                     var user = userCredential.user;
                     console.log('Usuario encontrado:', user);
-                    window.location.href = 'index.html';
+                    window.location.href = 'app-notas.html';
 
                 })
                 .catch((error) => {
