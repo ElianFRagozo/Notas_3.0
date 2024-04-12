@@ -25,7 +25,28 @@ document.addEventListener('DOMContentLoaded', function() {
             // Obtener el valor del email y la contraseña
             const email = document.querySelector('#emailInput').value;
             const password = document.querySelector('#passwordInput').value;
-    
+
+                // Enviar solicitud POST al API Gateway para registrar un nuevo usuario
+                fetch('/auth/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Manejar la respuesta del servidor
+                    console.log(data);
+                    // Redirigir o mostrar mensajes según sea necesario
+                })
+                .catch(error => {
+                    // Manejar errores de red o del servidor
+                    console.error(error);
+                })
             // Crear usuario con correo y contraseña
             createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
