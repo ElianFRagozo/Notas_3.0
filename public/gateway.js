@@ -3,18 +3,18 @@ const bodyParser = require('body-parser');
 const http = require('http');
 const fetch = require('node-fetch');
 const mongoose = require('mongoose');
+const { specs, swaggerUi } = require('./swagger-config');
 
 const app = express();
 const port = 4000;
 
-// Middleware para analizar el cuerpo de las solicitudes como JSON
 app.use(bodyParser.json());
 
-// Conexión a la base de datos MongoDB
+
 mongoose.connect('mongodb+srv://vrodriguezv:Valentina123@cluster0.knlvx22.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
 });
 
-// Modelo de la nota
+
 const Note = mongoose.model('Note', {
     title: String,
     content: String,
@@ -73,6 +73,7 @@ app.post('/auth/login', async (req, res) => {
         res.status(500).json({ error: 'Error en el servidor' });
     }
 });
+
 app.post('/api/notes', async (req, res) => {
     try {
         const { title, content } = req.body;
@@ -107,6 +108,8 @@ app.delete('/api/notes/:_id', async (req, res) => {
         res.status(500).json({ error: 'Error interno del servidor al eliminar nota' });
     }
 });
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 // Crear el servidor HTTP
 const server = http.createServer(app);

@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error("Invalid _id provided: ", _id);
         return;
     }
-    fetch(`http://localhost:3000/api/notes/${_id}`, {
+    fetch(`http://localhost:7061/api/notes/{_id}`, {
         method: 'DELETE'
     })
     .then(() => {
@@ -28,6 +28,9 @@ document.addEventListener('DOMContentLoaded', function() {
           console.error("Invalid _id provided: ", _id);
       }
   });
+
+
+
 
   function favNote() {
       $(".fav-note").off('click').on('click', function(event) {
@@ -96,11 +99,13 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   function loadNotes() {
-    fetch('http://localhost:3000/api/notes')
+    fetch('https://localhost:7061/api/Notes')
     .then(response => response.json())
     .then(notes => {
+        console.log(notes);
         // Iteramos sobre las notas y las actualizamos en el contenedor
         notes.forEach(note => {
+            const id = note.id.$oid;
             const existingNote = $(`#ct .note-item[data-note-id="${note._id}"]`);
             if (existingNote.length > 0) {
                 // La nota ya existe, actualizamos su contenido
@@ -109,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 // La nota no existe, la agregamos al contenedor al principio
                 const html = `
-                <div class="note-item all-notes" data-note-id="${note._id}">
+                <div class="note-item all-notes" data-note-id="${note.id}">
                     <div class="note-inner-content">
                         <div class="note-content">
                             <p class="note-title">${note.title}</p>
@@ -117,11 +122,11 @@ document.addEventListener('DOMContentLoaded', function() {
                             <div class="note-description-content">
                                 <p class="note-description">${note.content}</p>
                             </div>
-                            <svg class="feather feather-trash-2 delete-note" data-note-id="${note._id}"></svg>
+                            <svg class="feather feather-trash-2 delete-note" data-note-id="${note.id}"></svg>
                         </div>
                         <div class="note-action">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star fav-note"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> 
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 delete-note" data-note-id="${note._id}"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 delete-note" data-note-id="${note.id}"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
                         </div>
                         <div class="note-footer">
                             <div class="tags-selector btn-group">
@@ -145,13 +150,13 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                         </div>
                     </div>
-                </div>      
-                `;
+                </div>
+            `;
                 const noteElement = $(html); // Create a jQuery object for the note element
                 noteElement.find('.delete-note').off('click').on('click', function(event) {
                     event.stopPropagation();
                     event.preventDefault();
-                    const _id = $(this).attr('data-note-id');
+                    const _id = $(this).data('note-id');
                     deleteNote(_id);
                 });
                 $('#ct').prepend(noteElement); // Agregar la nota al principio del contenedor
@@ -164,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 
   function addNote(title, description) {
-      fetch('http://localhost:3000/api/notes', {
+      fetch('https://localhost:7061/api/Notes', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json'
