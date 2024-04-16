@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Iteramos sobre las notas y las actualizamos en el contenedor
         notes.forEach(note => {
             const id = note.id.$oid;
-            const existingNote = $(`#ct .note-item[data-note-id="${note._id}"]`);
+            const existingNote = $(`#ct .note-item[data-note-id="${note.id}"]`);
             if (existingNote.length > 0) {
                 // La nota ya existe, actualizamos su contenido
                 existingNote.find('.note-title').text(note.title);
@@ -192,9 +192,8 @@ function addNote(title, description) {
         document.getElementById('n-title').value = '';
         document.getElementById('n-description').value = '';
         $('#notesMailModal').modal('hide');
-        // Limpiar el contenedor de notas antes de cargarlas nuevamente
-        $('#ct').empty();
-        loadNotes();
+        // Agregar la nueva nota al contenedor al principio
+        loadNotes(); // Nota: esto debería ser suficiente para mostrar la nueva nota sin recargar la página
     })
     .catch(error => console.error('Error adding note:', error));
 }
