@@ -1,33 +1,41 @@
 document.addEventListener('DOMContentLoaded', function() {
-  loadNotes();
-
-  function deleteNote(_id) {
-    if (!_id || typeof _id !== 'string' || _id.length !== 24) {
-        console.error("Invalid _id provided: ", _id);
-        return;
+    loadNotes();
+  
+    function deleteNote(_id) {
+        console.log(_id);
+        if (!_id || typeof _id !== 'string' || _id.length !== 24) {
+            console.error("Invalid _id provided: ", _id);
+            return;
+        }
+        fetch(`https://localhost:7061/api/notes/${_id}`, {
+            method: 'DELETE'
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to delete note');
+            }
+            console.log('Note deleted successfully');
+            // Eliminar la nota del DOM
+            $(`#ct .note-item[data-note-id="${_id}"]`).remove();
+        })
+        .catch(error => console.error('Error deleting note:', error));
+        
+        
     }
-    fetch(`http://localhost:7061/api/notes/{_id}`, {
-        method: 'DELETE'
-    })
-    .then(() => {
-        console.log("Note deleted successfully!");
-        // Eliminar la nota del DOM
-        $(`#ct .note-item[data-note-id="${_id}"]`).remove();
-    })
-    .catch(error => console.error('Error deleting note:', error));
-}
+    
+    
+    // Evento para eliminar una nota al hacer clic en el botón de eliminar
+    $(".delete-note").off('click').on('click', function(event) {
+        event.stopPropagation();
+        const _id = $(this).attr('data-note-id'); // Obtener el _id de la nota
+        if (_id && _id.length === 24) { // Asegurarse de que _id sea un string de 24 caracteres
+            deleteNote(_id); // Llamar a la función para eliminar la nota del servidor
+        } else {
+            console.error("Invalid _id provided: ", _id);
+        }
+    });
+    
 
-
-  // Evento para eliminar una nota al hacer clic en el botón de eliminar
-  $(".delete-note").off('click').on('click', function(event) {
-      event.stopPropagation();
-      const _id = $(this).attr('data-note-id'); // Obtener el _id de la nota
-      if (_id && mongoose.Types.ObjectId.isValid(_id)) {
-          deleteNote(_id); // Llamar a la función para eliminar la nota del servidor
-      } else {
-          console.error("Invalid _id provided: ", _id);
-      }
-  });
 
 
 
@@ -168,25 +176,32 @@ document.addEventListener('DOMContentLoaded', function() {
     .catch(error => console.error('Error loading notes:', error));
 }
 
-  function addNote(title, description) {
-      fetch('https://localhost:7061/api/Notes', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ title: title, content: description })
-      })
-      .then(response => response.json())
-      .then(() => {
-          console.log("Note added successfully!");
-          // Limpiar los campos del formulario después de agregar la nota
-          document.getElementById('n-title').value = '';
-          document.getElementById('n-description').value = '';
-          $('#notesMailModal').modal('hide'); // Ocultar el modal después de agregar la nota
-          loadNotes(); // Volver a cargar las notas para mostrar la nueva
-      })
-      .catch(error => console.error('Error adding note:', error));
-  }
+function addNote(title, description) {
+    fetch('https://localhost:7061/api/Notes', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id: 'string', title: title, content: description })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        console.log("Note added successfully!");
+        document.getElementById('n-title').value = '';
+        document.getElementById('n-description').value = '';
+        $('#notesMailModal').modal('hide');
+        // Limpiar el contenedor de notas antes de cargarlas nuevamente
+        $('#ct').empty();
+        loadNotes();
+    })
+    .catch(error => console.error('Error adding note:', error));
+}
+
+
+
+
 
   $('#btn-add-notes').on('click', function(event) {
       $('#notesMailModal').modal('show');
